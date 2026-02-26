@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TI Sem Ilusão</title>
+
+    <!-- Fontes -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=JetBrains+Mono:wght@400;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Ícones -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* --- VARIÁVEIS --- */
+        :root {
+            --bg-color: #050505;
+            --neon-green: #00FF88;
+            --neon-green-dim: rgba(0, 255, 136, 0.15);
+            --text-primary: #FFFFFF;
+            --text-secondary: #888888;
+            --font-display: 'Outfit', sans-serif;
+            --font-tech: 'JetBrains Mono', monospace;
+            --glow-strong: 0 0 30px rgba(0, 255, 136, 0.4), 0 0 60px rgba(0, 255, 136, 0.2);
+            --glow-subtle: 0 0 20px rgba(0, 255, 136, 0.3);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            font-family: var(--font-display);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+        }
+
+        /* Background sutil com gradiente radial */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background:
+                radial-gradient(ellipse at 50% 0%, rgba(0, 255, 136, 0.08) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 80%, rgba(0, 255, 136, 0.03) 0%, transparent 40%);
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        /* --- HEADER --- */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 25px 0;
+            z-index: 100;
+            background: linear-gradient(to bottom, rgba(5, 5, 5, 0.95) 0%, rgba(5, 5, 5, 0) 100%);
+            backdrop-filter: blur(5px);
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .logo-text {
+            font-family: var(--font-display);
+            font-weight: 800;
+            font-size: 1.6rem;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: var(--text-primary);
+            text-shadow: 0 0 20px rgba(0, 255, 136, 0.3);
+        }
+
+        .logo-accent {
+            color: var(--neon-green);
+        }
+
+        .header-line {
+            width: 60px;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--neon-green), transparent);
+            animation: pulse-line 3s ease-in-out infinite;
+        }
+
+        @keyframes pulse-line {
+
+            0%,
+            100% {
+                opacity: 0.5;
+                width: 60px;
+            }
+
+            50% {
+                opacity: 1;
+                width: 100px;
+            }
+        }
+
+        /* --- MAIN CONTENT --- */
+        main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 140px 20px 60px;
+        }
+
+        .tagline {
+            font-family: var(--font-tech);
+            font-size: 1rem;
+            color: var(--neon-green);
+            letter-spacing: 6px;
+            text-transform: uppercase;
+            margin-bottom: 50px;
+            opacity: 0.8;
+            position: relative;
+        }
+
+        .tagline::before,
+        .tagline::after {
+            content: '//';
+            opacity: 0.4;
+            margin: 0 10px;
+        }
+
+        /* Container Principal do Livro */
+        .hero-book {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Moldura Técnica (estilo around da imagem) */
+        .book-frame {
+            position: relative;
+            padding: 3px;
+            background: linear-gradient(135deg, transparent 40%, var(--neon-green) 50%, transparent 60%);
+            background-size: 200% 200%;
+            animation: border-flow 4s ease infinite;
+            border-radius: 8px;
+            transition: all 0.4s ease;
+        }
+
+        @keyframes border-flow {
+            0% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        .book-frame:hover {
+            transform: scale(1.02);
+            box-shadow: var(--glow-strong);
+        }
+
+        /* Link clicável envolve a imagem */
+        .book-link {
+            display: block;
+            position: relative;
+            border-radius: 6px;
+            overflow: hidden;
+            background: #0a0a0a;
+        }
+
+        .book-cover {
+            display: block;
+            width: 280px;
+            height: auto;
+            max-width: 80vw;
+            transition: all 0.5s ease;
+            filter: brightness(1.1) contrast(1.05);
+        }
+
+        .book-link:hover .book-cover {
+            transform: scale(1.05);
+            filter: brightness(1.2) contrast(1.1);
+        }
+
+        /* Efeito de brilho passando na imagem */
+        .book-link::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 255, 136, 0.1), transparent);
+            transition: 0.5s;
+        }
+
+        .book-link:hover::after {
+            left: 100%;
+        }
+
+        /* Título do Livro */
+        .book-title {
+            margin-top: 30px;
+            font-family: var(--font-display);
+            font-size: 1.2rem;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            text-align: center;
+            color: var(--text-primary);
+            opacity: 0;
+            animation: fadeIn 0.8s ease-out 0.3s forwards;
+        }
+
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+            }
+        }
+
+        /* Botão */
+        .cta-button {
+            margin-top: 25px;
+            padding: 14px 45px;
+            font-family: var(--font-tech);
+            font-size: 0.8rem;
+            font-weight: 700;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--neon-green);
+            background: transparent;
+            border: 1px solid var(--neon-green);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            opacity: 0;
+            animation: fadeIn 0.8s ease-out 0.5s forwards;
+        }
+
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: var(--neon-green);
+            transition: all 0.3s ease;
+            z-index: -1;
+        }
+
+        .cta-button:hover {
+            color: var(--bg-color);
+            box-shadow: var(--glow-subtle);
+        }
+
+        .cta-button:hover::before {
+            left: 0;
+        }
+
+        /* Texto auxiliar */
+        .download-hint {
+            margin-top: 15px;
+            font-size: 0.7rem;
+            color: var(--text-secondary);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            opacity: 0;
+            animation: fadeIn 0.8s ease-out 0.7s forwards;
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            padding: 40px 0;
+            text-align: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .social-container {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+        }
+
+        .social-link {
+            width: 45px;
+            height: 45px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            color: var(--text-primary);
+            font-size: 1.1rem;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .social-link:hover {
+            border-color: var(--neon-green);
+            color: var(--neon-green);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 20px rgba(0, 255, 136, 0.2);
+        }
+
+        .social-link::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: var(--neon-green);
+            opacity: 0;
+            transform: scale(0.5);
+            transition: all 0.3s ease;
+            z-index: -1;
+        }
+
+        .social-link:hover::before {
+            opacity: 0.1;
+            transform: scale(1);
+        }
+
+        .copyright {
+            margin-top: 30px;
+            font-size: 0.7rem;
+            color: var(--text-secondary);
+            letter-spacing: 1px;
+        }
+
+        /* --- RESPONSIVIDADE --- */
+        @media (max-width: 600px) {
+            .logo-text {
+                font-size: 1.3rem;
+                letter-spacing: 2px;
+            }
+
+            .book-cover {
+                width: 220px;
+            }
+
+            .tagline {
+                font-size: 0.85rem;
+                letter-spacing: 3px;
+            }
+
+            .tagline::before,
+            .tagline::after {
+                display: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- HEADER -->
+    <header>
+        <div class="header-content">
+            <div class="logo-text">
+                TI <span class="logo-accent">Sem</span> Ilusão
+            </div>
+            <div class="header-line"></div>
+        </div>
+    </header>
+
+    <!-- MAIN -->
+    <main>
+        <div class="tagline">Livro da Semana</div>
+
+        <div class="hero-book">
+            <!-- Moldura com gradiente animado -->
+            <div class="book-frame">
+                <a href="livro.pdf" class="book-link" download>
+                    <img src="./images/91z0+pX2AkL._UF1000,1000_QL80_.jpg" alt="Capa do Livro" class="book-cover">
+                </a>
+            </div>
+
+            <!-- Título do Livro -->
+            <h2 class="book-title">Entendendo algoritimos | Guia ilustrado para programadores</h2>
+
+            <!-- Botão de Download -->
+            <a href="livro.pdf" class="cta-button" download>
+                <i class="fas fa-download" style="margin-right: 8px;"></i> Baixar Livro
+            </a>
+
+            <span class="download-hint">Clique na capa ou no botão para baixar</span>
+        </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="social-container">
+            <a href="https://www.instagram.com/tisemilusao/" target="_blank" class="social-link" aria-label="Instagram">
+                <i class="fab fa-instagram"></i>
+            </a>
+
+            <!--
+            <a href="https://tiktok.com/@suatik tok" target="_blank" class="social-link" aria-label="TikTok">
+                <i class="fab fa-tiktok"></i>
+            </a>
+            <a href="https://linkedin.com/in/seulinkedin" target="_blank" class="social-link" aria-label="LinkedIn">
+                <i class="fab fa-linkedin-in"></i>
+            </a>
+            -->
+
+        </div>
+
+        <div class="copyright">
+            © 2024 TI Sem Ilusão. Todos os direitos reservados.
+        </div>
+    </footer>
+
+</body>
+
+</html>

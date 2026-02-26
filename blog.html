@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TI Sem Ilusão</title>
+    <title>Blog - TI Sem Ilusão</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -21,7 +21,6 @@
             --text-secondary: #888888;
             --font-display: 'Outfit', sans-serif;
             --font-tech: 'JetBrains Mono', monospace;
-            --glow-strong: 0 0 30px rgba(0, 255, 136, 0.4), 0 0 60px rgba(0, 255, 136, 0.2);
             --glow-subtle: 0 0 20px rgba(0, 255, 136, 0.3);
         }
 
@@ -35,10 +34,9 @@
             background-color: var(--bg-color);
             color: var(--text-primary);
             font-family: var(--font-display);
+            display: flex(--font-display);
             min-height: 100vh;
-            display: flex;
             flex-direction: column;
-            overflow-x: hidden;
         }
 
         body::before {
@@ -49,12 +47,13 @@
             width: 100%;
             height: 100%;
             background:
-                radial-gradient(ellipse at 50% 0%, rgba(0, 255, 136, 0.08) 0%, transparent 50%),
+                radial-gradient(ellipse at 20% 20%, rgba(0, 255, 136, 0.05) 0%, transparent 50%),
                 radial-gradient(ellipse at 80% 80%, rgba(0, 255, 136, 0.03) 0%, transparent 40%);
             pointer-events: none;
             z-index: -1;
         }
 
+        /* --- HEADER --- */
         header {
             position: fixed;
             top: 0;
@@ -147,16 +146,16 @@
             }
         }
 
+        /* --- MAIN CONTENT --- */
         main {
             flex: 1;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
             padding: 160px 20px 60px;
+            max-width: 900px;
+            margin: 0 auto;
+            width: 100%;
         }
 
-        .tagline {
+        .page-title {
             font-family: var(--font-tech);
             font-size: 0.75rem;
             color: var(--neon-green);
@@ -164,28 +163,50 @@
             text-transform: uppercase;
             margin-bottom: 50px;
             opacity: 0.8;
-            position: relative;
+            text-align: center;
         }
 
-        .tagline::before,
-        .tagline::after {
+        .page-title::before,
+        .page-title::after {
             content: '//';
             opacity: 0.4;
             margin: 0 10px;
         }
 
-        .hero-book {
-            position: relative;
+        /* Grid de Posts */
+        .posts-grid {
             display: flex;
             flex-direction: column;
-            align-items: center;
-            animation: fadeInUp 1s ease-out;
+            gap: 30px;
+        }
+
+        /* Card de Post */
+        .post-card {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(0, 255, 136, 0.1);
+            border-radius: 12px;
+            padding: 30px;
+            transition: all 0.3s ease;
+            animation: fadeInUp 0.6s ease-out forwards;
+            opacity: 0;
+        }
+
+        .post-card:nth-child(1) {
+            animation-delay: 0.1s;
+        }
+
+        .post-card:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .post-card:nth-child(3) {
+            animation-delay: 0.3s;
         }
 
         @keyframes fadeInUp {
             from {
                 opacity: 0;
-                transform: translateY(30px);
+                transform: translateY(20px);
             }
 
             to {
@@ -194,142 +215,82 @@
             }
         }
 
-        .book-frame {
-            position: relative;
-            padding: 3px;
-            background: linear-gradient(135deg, transparent 40%, var(--neon-green) 50%, transparent 60%);
-            background-size: 200% 200%;
-            animation: border-flow 4s ease infinite;
-            border-radius: 8px;
-            transition: all 0.4s ease;
+        .post-card:hover {
+            border-color: rgba(0, 255, 136, 0.4);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
         }
 
-        @keyframes border-flow {
-            0% {
-                background-position: 0% 50%;
-            }
-
-            50% {
-                background-position: 100% 50%;
-            }
-
-            100% {
-                background-position: 0% 50%;
-            }
+        .post-meta {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 15px;
         }
 
-        .book-frame:hover {
-            transform: scale(1.02);
-            box-shadow: var(--glow-strong);
-        }
-
-        .book-link {
-            display: block;
-            position: relative;
-            border-radius: 6px;
-            overflow: hidden;
-            background: #0a0a0a;
-        }
-
-        .book-cover {
-            display: block;
-            width: 280px;
-            height: auto;
-            max-width: 80vw;
-            transition: all 0.5s ease;
-            filter: brightness(1.1) contrast(1.05);
-        }
-
-        .book-link:hover .book-cover {
-            transform: scale(1.05);
-            filter: brightness(1.2) contrast(1.1);
-        }
-
-        .book-link::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(0, 255, 136, 0.1), transparent);
-            transition: 0.5s;
-        }
-
-        .book-link:hover::after {
-            left: 100%;
-        }
-
-        .book-title {
-            margin-top: 30px;
-            font-family: var(--font-display);
-            font-size: 1.2rem;
-            font-weight: 600;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            color: var(--text-primary);
-            opacity: 0;
-            animation: fadeIn 0.8s ease-out 0.3s forwards;
-        }
-
-        @keyframes fadeIn {
-            to {
-                opacity: 1;
-            }
-        }
-
-        .cta-button {
-            margin-top: 25px;
-            padding: 14px 45px;
+        .post-date {
             font-family: var(--font-tech);
-            font-size: 0.8rem;
-            font-weight: 700;
-            letter-spacing: 3px;
-            text-transform: uppercase;
-            color: var(--neon-green);
-            background: transparent;
-            border: 1px solid var(--neon-green);
-            cursor: pointer;
-            position: relative;
-            overflow: hidden;
-            transition: all 0.3s ease;
-            text-decoration: none;
-            display: inline-block;
-            opacity: 0;
-            animation: fadeIn 0.8s ease-out 0.5s forwards;
-        }
-
-        .cta-button::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: var(--neon-green);
-            transition: all 0.3s ease;
-            z-index: -1;
-        }
-
-        .cta-button:hover {
-            color: var(--bg-color);
-            box-shadow: var(--glow-subtle);
-        }
-
-        .cta-button:hover::before {
-            left: 0;
-        }
-
-        .download-hint {
-            margin-top: 15px;
             font-size: 0.7rem;
-            color: var(--text-secondary);
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            opacity: 0;
-            animation: fadeIn 0.8s ease-out 0.7s forwards;
+            color: var(--neon-green);
+            letter-spacing: 1px;
         }
 
+        .post-category {
+            font-family: var(--font-tech);
+            font-size: 0.65rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding: 4px 10px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+        }
+
+        .post-title {
+            font-family: var(--font-display);
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 15px;
+            line-height: 1.4;
+            transition: color 0.3s ease;
+            text-decoration: none;
+            display: block;
+        }
+
+        .post-card:hover .post-title {
+            color: var(--neon-green);
+        }
+
+        .post-excerpt {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            line-height: 1.7;
+            margin-bottom: 20px;
+        }
+
+        .post-read-more {
+            font-family: var(--font-tech);
+            font-size: 0.75rem;
+            color: var(--neon-green);
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .post-read-more:hover {
+            gap: 15px;
+        }
+
+        .post-read-more i {
+            font-size: 0.8rem;
+        }
+
+        /* --- FOOTER --- */
         footer {
             padding: 40px 0;
             text-align: center;
@@ -371,28 +332,33 @@
             letter-spacing: 1px;
         }
 
+        /* --- RESPONSIVIDADE --- */
         @media (max-width: 600px) {
             .logo-text {
                 font-size: 1.3rem;
                 letter-spacing: 2px;
             }
 
-            .book-cover {
-                width: 220px;
+            .nav-menu {
+                gap: 20px;
             }
 
-            .tagline {
+            .page-title {
                 font-size: 0.65rem;
                 letter-spacing: 3px;
             }
 
-            .tagline::before,
-            .tagline::after {
+            .page-title::before,
+            .page-title::after {
                 display: none;
             }
 
-            .nav-menu {
-                gap: 20px;
+            .post-card {
+                padding: 20px;
+            }
+
+            .post-title {
+                font-size: 1.2rem;
             }
         }
     </style>
@@ -403,8 +369,8 @@
     <header>
         <div class="header-content">
             <nav class="nav-menu">
-                <a href="index.html" class="nav-link active">Início</a>
-                <a href="blog.html" class="nav-link">Blog</a>
+                <a href="index.html" class="nav-link">Início</a>
+                <a href="blog.html" class="nav-link active">Blog</a>
                 <a href="sobre.html" class="nav-link">Sobre</a>
             </nav>
             <div class="logo-text">
@@ -415,22 +381,26 @@
     </header>
 
     <main>
-        <div class="tagline">Livro da Semana</div>
+        <h1 class="page-title">Últimos Artigos</h1>
 
-        <div class="hero-book">
-            <div class="book-frame">
-                <a href="./livros/Entendendo Algoritmos - Um Guia Ilustrado Para Programadores e Outros Curiosos - Autor (Aditya Y. Bhargava).pdf" class="book-link" download>
-                    <img src="./images/91z0+pX2AkL._UF1000,1000_QL80_.jpg" alt="Capa do Livro" class="book-cover">
+        <div class="posts-grid">
+
+            <!-- Post 1 -->
+            <article class="post-card">
+                <div class="post-meta">
+                    <span class="post-date">26 FEV 2026</span>
+                    <span class="post-category">Segurança</span>
+                </div>
+                <a href="artigo-seguranca.html" class="post-title">Introdução à Segurança da Informação</a>
+                <p class="post-excerpt">
+                    Aprenda os conceitos fundamentais de segurança cibernética e como proteger seus sistemas contra
+                    ameaças modernas...
+                </p>
+                <a href="artigo-seguranca.html" class="post-read-more">
+                    Ler artigo <i class="fas fa-arrow-right"></i>
                 </a>
-            </div>
+            </article>
 
-            <h2 class="book-title">Engenharia Reversa</h2>
-
-            <a href="./livros/Entendendo Algoritmos - Um Guia Ilustrado Para Programadores e Outros Curiosos - Autor (Aditya Y. Bhargava).pdf" class="cta-button" download>
-                <i class="fas fa-download" style="margin-right: 8px;"></i> Baixar Livro
-            </a>
-
-            <span class="download-hint">Clique na capa ou no botão para baixar</span>
         </div>
     </main>
 

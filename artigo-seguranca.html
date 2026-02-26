@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Título do Artigo - TI Sem Ilusão</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=JetBrains+Mono:wght@400;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --bg-color: #050505;
+            --neon-green: #00FF88;
+            --text-primary: #FFFFFF;
+            --text-secondary: #888888;
+            --font-display: 'Outfit', sans-serif;
+            --font-tech: 'JetBrains Mono', monospace;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            font-family: var(--font-display);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            line-height: 1.8;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background:
+                radial-gradient(ellipse at 20% 20%, rgba(0, 255, 136, 0.05) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 80%, rgba(0, 255, 136, 0.03) 0%, transparent 40%);
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        /* --- HEADER --- */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 20px 0;
+            z-index: 100;
+            background: linear-gradient(to bottom, rgba(5, 5, 5, 0.95) 0%, rgba(5, 5, 5, 0) 100%);
+            backdrop-filter: blur(5px);
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 30px;
+            margin-bottom: 5px;
+        }
+
+        .nav-link {
+            font-family: var(--font-tech);
+            font-size: 0.7rem;
+            color: var(--text-secondary);
+            text-decoration: none;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            color: var(--neon-green);
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: var(--neon-green);
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after,
+        .nav-link.active::after {
+            width: 100%;
+        }
+
+        .logo-text {
+            font-family: var(--font-display);
+            font-weight: 800;
+            font-size: 1.6rem;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: var(--text-primary);
+            text-shadow: 0 0 20px rgba(0, 255, 136, 0.3);
+        }
+
+        .logo-accent {
+            color: var(--neon-green);
+        }
+
+        .header-line {
+            width: 60px;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--neon-green), transparent);
+        }
+
+        /* --- ARTICLE CONTENT --- */
+        main {
+            flex: 1;
+            padding: 150px 20px 60px;
+            max-width: 750px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .back-link {
+            font-family: var(--font-tech);
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 40px;
+            transition: all 0.3s ease;
+        }
+
+        .back-link:hover {
+            color: var(--neon-green);
+            gap: 12px;
+        }
+
+        .article-meta {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .article-date {
+            font-family: var(--font-tech);
+            font-size: 0.7rem;
+            color: var(--neon-green);
+            letter-spacing: 1px;
+        }
+
+        .article-category {
+            font-family: var(--font-tech);
+            font-size: 0.65rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding: 4px 10px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+        }
+
+        .article-title {
+            font-size: 2.2rem;
+            font-weight: 700;
+            line-height: 1.3;
+            margin-bottom: 30px;
+            background: linear-gradient(135deg, #fff 0%, var(--neon-green) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .article-image {
+            width: 100%;
+            border-radius: 12px;
+            margin-bottom: 40px;
+            border: 1px solid rgba(0, 255, 136, 0.2);
+        }
+
+        .article-content {
+            font-size: 1rem;
+            color: #cccccc;
+        }
+
+        .article-content h2 {
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            color: var(--text-primary);
+            margin: 40px 0 20px;
+        }
+
+        .article-content p {
+            margin-bottom: 20px;
+        }
+
+        .article-content ul {
+            margin: 20px 0 20px 20px;
+        }
+
+        .article-content li {
+            margin-bottom: 10px;
+            color: #cccccc;
+        }
+
+        .article-content code {
+            font-family: var(--font-tech);
+            background: rgba(0, 255, 136, 0.1);
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            color: var(--neon-green);
+        }
+
+        .article-content pre {
+            background: #0a0a0a;
+            padding: 20px;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 20px 0;
+            border: 1px solid rgba(0, 255, 136, 0.2);
+        }
+
+        .article-content pre code {
+            background: none;
+            padding: 0;
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            padding: 40px 0;
+            text-align: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            margin-top: 60px;
+        }
+
+        .social-container {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+        }
+
+        .social-link {
+            width: 45px;
+            height: 45px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            color: var(--text-primary);
+            font-size: 1.1rem;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .social-link:hover {
+            border-color: var(--neon-green);
+            color: var(--neon-green);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 20px rgba(0, 255, 136, 0.2);
+        }
+
+        .copyright {
+            margin-top: 30px;
+            font-size: 0.7rem;
+            color: var(--text-secondary);
+            letter-spacing: 1px;
+        }
+
+        @media (max-width: 600px) {
+            .logo-text {
+                font-size: 1.3rem;
+            }
+
+            .article-title {
+                font-size: 1.6rem;
+            }
+
+            .nav-menu {
+                gap: 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <div class="header-content">
+            <nav class="nav-menu">
+                <a href="index.html" class="nav-link">Início</a>
+                <a href="blog.html" class="nav-link active">Blog</a>
+                <a href="sobre.html" class="nav-link">Sobre</a>
+            </nav>
+            <div class="logo-text">
+                TI <span class="logo-accent">Sem</span> Ilusão
+            </div>
+            <div class="header-line"></div>
+        </div>
+    </header>
+
+    <main>
+        <a href="blog.html" class="back-link">
+            <i class="fas fa-arrow-left"></i> Voltar ao Blog
+        </a>
+
+        <article>
+            <div class="article-meta">
+                <span class="article-date">26 FEV 2026</span>
+                <span class="article-category">Segurança</span>
+            </div>
+
+            <h1 class="article-title">Introdução à Segurança da Informação</h1>
+
+            <!-- Imagem do artigo (opcional) 
+            <img src="imagem-artigo.jpg" alt="Imagem do artigo" class="article-image">
+            -->
+
+            <div class="article-content">
+                <h2>Segurança não é opcional</h2>
+                <p>
+                    Segurança da informação deixou de ser um diferencial competitivo e passou a ser requisito básico para qualquer pessoa ou
+                    empresa que utilize tecnologia. Não importa se você é desenvolvedor, estudante ou empresário. Se você utiliza internet,
+                    você lida com dados. E dados têm valor.
+                </p>
+                <p>
+                    O problema é que muitas pessoas só percebem isso depois de sofrer um incidente.
+                </p>
+
+                <h2>O que é Segurança da Informação?</h2>
+                <p>
+                    Segurança da informação é o conjunto de práticas, políticas e tecnologias voltadas para proteger dados contra acesso não
+                    autorizado, alteração indevida ou indisponibilidade.
+                </p>
+                <p>
+                    Ela se baseia em três pilares fundamentais
+                </p>
+
+                <h2>Os 3 Pilares Fundamentais</h2>
+                <ul>
+                    <li><strong>Confidencialidade:</strong> Garantir que apenas pessoas autorizadas tenham acesso às
+                        informações.</li>
+                    <li><strong>Integridade:</strong> Assegurar que os dados não sejam alterados de forma não
+                        autorizada.</li>
+                    <li><strong>Disponibilidade:</strong> Garantir que as informações estejam disponíveis quando
+                        necessário.</li>
+                </ul>
+                <p>
+                    Se um desses pilares falha, a segurança falhou.
+                </p>
+
+                <h2>Ameaças atuais</h2>
+                <p>
+                    Os ataques atuais são automatizados, 
+                    escaláveis e muitas vezes invisíveis para o usuário comum. Entre os principais
+                    riscos estão:
+                </p>
+                <p>Phishing</p>
+                <p>Vazamentos de banco de dados</p>
+                <p>Ransomware</p>
+                <p>Engenharia social</p>
+                <p>Ataques de força bruta</p>
+                <p>
+                    Grande parte dos incidentes não ocorre por falha técnica complexa, mas por erro humano ou má configuração.
+                </p>
+
+                <h2>Conclusão</h2>
+                <p>
+                    Ignorar segurança é assumir risco consciente.
+                    Quem trabalha com tecnologia precisa entender que proteger informação não é exagero. É responsabilidade.
+                </p>
+            </div>
+        </article>
+    </main>
+
+    <footer>
+        <div class="social-container">
+            <a href="https://www.instagram.com/tisemilusao/" target="_blank" class="social-link">
+                <i class="fab fa-instagram"></i>
+            </a>
+        </div>
+        <div class="copyright">
+            © 2026 TI Sem Ilusão. Todos os direitos reservados.
+        </div>
+    </footer>
+
+</body>
+
+</html>

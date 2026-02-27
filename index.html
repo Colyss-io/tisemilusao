@@ -21,7 +21,7 @@
             --text-secondary: #888888;
             --font-display: 'Outfit', sans-serif;
             --font-tech: 'JetBrains Mono', monospace;
-            --glow-strong: 0 0 30px rgba(0, 255, 136, 0.4), 0 0 60px rgba(0, 255, 136, 0.2);
+            --glow-strong: 0 0 30px rgba(0, 255, 136, 0.4);
             --glow-subtle: 0 0 20px rgba(0, 255, 136, 0.3);
         }
 
@@ -149,37 +149,16 @@
 
         main {
             flex: 1;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
             padding: 160px 20px 60px;
+            max-width: 1100px;
+            margin: 0 auto;
+            width: 100%;
         }
 
-        .tagline {
-            font-family: var(--font-tech);
-            font-size: 0.75rem;
-            color: var(--neon-green);
-            letter-spacing: 6px;
-            text-transform: uppercase;
-            margin-bottom: 50px;
-            opacity: 0.8;
-            position: relative;
-        }
-
-        .tagline::before,
-        .tagline::after {
-            content: '//';
-            opacity: 0.4;
-            margin: 0 10px;
-        }
-
-        .hero-book {
-            position: relative;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            animation: fadeInUp 1s ease-out;
+        .hero {
+            text-align: center;
+            margin-bottom: 60px;
+            animation: fadeInUp 0.8s ease-out;
         }
 
         @keyframes fadeInUp {
@@ -194,140 +173,256 @@
             }
         }
 
-        .book-frame {
-            position: relative;
-            padding: 3px;
-            background: linear-gradient(135deg, transparent 40%, var(--neon-green) 50%, transparent 60%);
-            background-size: 200% 200%;
-            animation: border-flow 4s ease infinite;
-            border-radius: 8px;
-            transition: all 0.4s ease;
+        .hero-tag {
+            font-family: var(--font-tech);
+            font-size: 0.75rem;
+            color: var(--neon-green);
+            letter-spacing: 6px;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+            opacity: 0.8;
         }
 
-        @keyframes border-flow {
-            0% {
-                background-position: 0% 50%;
-            }
-
-            50% {
-                background-position: 100% 50%;
-            }
-
-            100% {
-                background-position: 0% 50%;
-            }
+        .hero-tag::before,
+        .hero-tag::after {
+            content: '//';
+            opacity: 0.4;
+            margin: 0 10px;
         }
 
-        .book-frame:hover {
-            transform: scale(1.02);
-            box-shadow: var(--glow-strong);
+        .hero-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            line-height: 1.2;
         }
 
-        .book-link {
+        .hero-title span {
+            color: var(--neon-green);
+        }
+
+        .hero-subtitle {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 30px;
+        }
+
+        .section-title {
+            font-family: var(--font-tech);
+            font-size: 0.8rem;
+            color: var(--neon-green);
+            letter-spacing: 3px;
+            text-transform: uppercase;
+        }
+
+        .section-link {
+            font-family: var(--font-tech);
+            font-size: 0.7rem;
+            color: var(--text-secondary);
+            text-decoration: none;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            transition: color 0.3s ease;
+        }
+
+        .section-link:hover {
+            color: var(--neon-green);
+        }
+
+        .articles-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+
+        .article-card {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(0, 255, 136, 0.1);
+            border-radius: 12px;
+            padding: 25px;
+            transition: all 0.3s ease;
+            animation: fadeInUp 0.6s ease-out forwards;
+            opacity: 0;
+            text-decoration: none;
             display: block;
-            position: relative;
-            border-radius: 6px;
-            overflow: hidden;
-            background: #0a0a0a;
         }
 
-        .book-cover {
-            display: block;
-            width: 280px;
-            height: auto;
-            max-width: 80vw;
-            transition: all 0.5s ease;
-            filter: brightness(1.1) contrast(1.05);
+        .article-card:nth-child(1) {
+            animation-delay: 0.1s;
         }
 
-        .book-link:hover .book-cover {
-            transform: scale(1.05);
-            filter: brightness(1.2) contrast(1.1);
+        .article-card:nth-child(2) {
+            animation-delay: 0.2s;
         }
 
-        .book-link::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(0, 255, 136, 0.1), transparent);
-            transition: 0.5s;
+        .article-card:nth-child(3) {
+            animation-delay: 0.3s;
         }
 
-        .book-link:hover::after {
-            left: 100%;
+        .article-card:hover {
+            border-color: rgba(0, 255, 136, 0.4);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
         }
 
-        .book-title {
-            margin-top: 30px;
+        .article-meta {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 15px;
+        }
+
+        .article-date {
+            font-family: var(--font-tech);
+            font-size: 0.65rem;
+            color: var(--neon-green);
+            letter-spacing: 1px;
+        }
+
+        .article-category {
+            font-family: var(--font-tech);
+            font-size: 0.6rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding: 3px 8px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+        }
+
+        .article-title {
             font-family: var(--font-display);
             font-size: 1.2rem;
             font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 12px;
+            line-height: 1.4;
+            transition: color 0.3s ease;
+        }
+
+        .article-card:hover .article-title {
+            color: var(--neon-green);
+        }
+
+        .article-excerpt {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        .article-read-more {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 15px;
+            font-family: var(--font-tech);
+            font-size: 0.7rem;
+            color: var(--neon-green);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .article-card:hover .article-read-more {
+            gap: 12px;
+        }
+
+        .newsletter-section {
+            background: linear-gradient(135deg, rgba(0, 255, 136, 0.05) 0%, rgba(0, 0, 0, 0) 100%);
+            border: 1px solid rgba(0, 255, 136, 0.15);
+            border-radius: 16px;
+            padding: 50px 40px;
+            text-align: center;
+            margin-bottom: 40px;
+            animation: fadeInUp 0.6s ease-out 0.4s forwards;
+            opacity: 0;
+        }
+
+        .newsletter-icon {
+            font-size: 2rem;
+            color: var(--neon-green);
+            margin-bottom: 20px;
+        }
+
+        .newsletter-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .newsletter-subtitle {
+            color: var(--text-secondary);
+            margin-bottom: 30px;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .newsletter-form {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .newsletter-input {
+            flex: 1;
+            min-width: 250px;
+            padding: 15px 20px;
+            font-family: var(--font-display);
+            font-size: 0.9rem;
+            color: var(--text-primary);
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .newsletter-input::placeholder {
+            color: var(--text-secondary);
+        }
+
+        .newsletter-input:focus {
+            border-color: var(--neon-green);
+            box-shadow: 0 0 15px rgba(0, 255, 136, 0.2);
+        }
+
+        .newsletter-button {
+            padding: 15px 35px;
+            font-family: var(--font-tech);
+            font-size: 0.75rem;
+            font-weight: 700;
             letter-spacing: 2px;
             text-transform: uppercase;
-            color: var(--text-primary);
-            opacity: 0;
-            animation: fadeIn 0.8s ease-out 0.3s forwards;
-        }
-
-        @keyframes fadeIn {
-            to {
-                opacity: 1;
-            }
-        }
-
-        .cta-button {
-            margin-top: 25px;
-            padding: 14px 45px;
-            font-family: var(--font-tech);
-            font-size: 0.8rem;
-            font-weight: 700;
-            letter-spacing: 3px;
-            text-transform: uppercase;
-            color: var(--neon-green);
-            background: transparent;
-            border: 1px solid var(--neon-green);
-            cursor: pointer;
-            position: relative;
-            overflow: hidden;
-            transition: all 0.3s ease;
-            text-decoration: none;
-            display: inline-block;
-            opacity: 0;
-            animation: fadeIn 0.8s ease-out 0.5s forwards;
-        }
-
-        .cta-button::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: var(--neon-green);
-            transition: all 0.3s ease;
-            z-index: -1;
-        }
-
-        .cta-button:hover {
             color: var(--bg-color);
-            box-shadow: var(--glow-subtle);
+            background: var(--neon-green);
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
         }
 
-        .cta-button:hover::before {
-            left: 0;
+        .newsletter-button:hover {
+            box-shadow: var(--glow-strong);
+            transform: scale(1.02);
         }
 
-        .download-hint {
-            margin-top: 15px;
+        .newsletter-privacy {
             font-size: 0.7rem;
             color: var(--text-secondary);
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            opacity: 0;
-            animation: fadeIn 0.8s ease-out 0.7s forwards;
+            margin-top: 15px;
+            opacity: 0.7;
         }
 
         footer {
@@ -354,7 +449,6 @@
             font-size: 1.1rem;
             text-decoration: none;
             transition: all 0.3s ease;
-            position: relative;
         }
 
         .social-link:hover {
@@ -371,28 +465,49 @@
             letter-spacing: 1px;
         }
 
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 1.8rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1rem;
+            }
+
+            .newsletter-section {
+                padding: 40px 20px;
+            }
+
+            .articles-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
         @media (max-width: 600px) {
             .logo-text {
                 font-size: 1.3rem;
                 letter-spacing: 2px;
             }
 
-            .book-cover {
-                width: 220px;
+            .nav-menu {
+                gap: 20px;
             }
 
-            .tagline {
+            .nav-link {
+                font-size: 0.6rem;
+            }
+
+            .hero-tag {
                 font-size: 0.65rem;
                 letter-spacing: 3px;
             }
 
-            .tagline::before,
-            .tagline::after {
-                display: none;
+            .newsletter-form {
+                flex-direction: column;
             }
 
-            .nav-menu {
-                gap: 20px;
+            .newsletter-button {
+                width: 100%;
             }
         }
     </style>
@@ -415,36 +530,101 @@
     </header>
 
     <main>
-        <div class="tagline">Livro da Semana</div>
+        <section class="hero">
+            <p class="hero-tag">Bem-vindo</p>
+            <h1 class="hero-title">
+                Tecnologia <span>Sem</span> Ilusão
+            </h1>
+            <p class="hero-subtitle">
+                Aprenda tecnologia de verdade, sem promessas vazias.
+                Conteúdo gratuito para quem quer crescer na área de TI.
+            </p>
+        </section>
 
-        <div class="hero-book">
-            <div class="book-frame">
-                <a href="./livros/Entendendo Algoritmos - Um Guia Ilustrado Para Programadores e Outros Curiosos - Autor (Aditya Y. Bhargava).pdf" class="book-link" download>
-                    <img src="./images/91z0+pX2AkL._UF1000,1000_QL80_.jpg" alt="Capa do Livro" class="book-cover">
+        <div class="section-header">
+            <h2 class="section-title">Artigos em Destaque</h2>
+            <a href="blog.html" class="section-link">Ver todos →</a>
+        </div>
+
+        <div class="articles-grid">
+            <a href="artigo-seguranca.html" class="article-card">
+                <div class="article-meta">
+                    <span class="article-date">15 JAN 2024</span>
+                    <span class="article-category">Segurança</span>
+                </div>
+                <h3 class="article-title">Introdução à Segurança da Informação</h3>
+                <p class="article-excerpt">
+                    Aprenda os conceitos fundamentais de segurança cibernética e como proteger seus sistemas...
+                </p>
+                <span class="article-read-more">
+                    Ler artigo <i class="fas fa-arrow-right"></i>
+                </span>
+            </a>
+
+            <a href="artigo-python.html" class="article-card">
+                <div class="article-meta">
+                    <span class="article-date">10 JAN 2024</span>
+                    <span class="article-category">Programação</span>
+                </div>
+                <h3 class="article-title">Clean Code: Boas Práticas em Python</h3>
+                <p class="article-excerpt">
+                    Descubra como escrever código mais legível e manutenível com técnicas de profissionais...
+                </p>
+                <span class="article-read-more">
+                    Ler artigo <i class="fas fa-arrow-right"></i>
+                </span>
+            </a>
+
+            <a href="artigo-carreira.html" class="article-card">
+                <div class="article-meta">
+                    <span class="article-date">05 JAN 2024</span>
+                    <span class="article-category">Carreira</span>
+                </div>
+                <h3 class="article-title">Como Entrar no Mercado de TI em 2024</h3>
+                <p class="article-excerpt">
+                    Um guia completo para quem deseja iniciar carreira na área de tecnologia. Dicas essenciais...
+                </p>
+                <span class="article-read-more">
+                    Ler artigo <i class="fas fa-arrow-right"></i>
+                </span>
+            </a>
+        </div>
+
+        <div class="newsletter-section">
+            <div class="newsletter-icon">
+                <i class="fas fa-envelope-open-text"></i>
+            </div>
+            <h2 class="newsletter-title">Receba Nosso Conteúdo</h2>
+            <p class="newsletter-subtitle">
+                Assine a newsletter e receba artigos exclusivos, dicas e novidades diretamente no seu email. Sem spam, tylko
+                conteúdo de valor.
+            </p>
+            <form class="newsletter-form" action="#" method="POST">
+                <input type="email" class="newsletter-input" placeholder="Seu melhor email" required>
+                <button type="submit" class="newsletter-button">
+                    Inscrever-se
+                </button>
+            </form>
+        </div>
+        </main>
+        
+        <footer>
+            <div class="social-container">
+                <a href="https://instagram.com/seuinstagram" target="_blank" class="social-link" aria-label="Instagram">
+                    <i class="fab fa-instagram"></i>
+                </a>
+                <a href="https://tiktok.com/@suatiktok" target="_blank" class="social-link" aria-label="TikTok">
+                    <i class="fab fa-tiktok"></i>
+                </a>
+                <a href="https://linkedin.com/in/seulinkedin" target="_blank" class="social-link" aria-label="LinkedIn">
+                    <i class="fab fa-linkedin-in"></i>
                 </a>
             </div>
-
-            <h2 class="book-title">Engenharia Reversa</h2>
-
-            <a href="./livros/Entendendo Algoritmos - Um Guia Ilustrado Para Programadores e Outros Curiosos - Autor (Aditya Y. Bhargava).pdf" class="cta-button" download>
-                <i class="fas fa-download" style="margin-right: 8px;"></i> Baixar Livro
-            </a>
-
-            <span class="download-hint">Clique na capa ou no botão para baixar</span>
-        </div>
-    </main>
-
-    <footer>
-        <div class="social-container">
-            <a href="https://www.instagram.com/tisemilusao/" target="_blank" class="social-link" aria-label="Instagram">
-                <i class="fab fa-instagram"></i>
-            </a>
-        </div>
-        <div class="copyright">
-            © 2026 TI Sem Ilusão. Todos os direitos reservados.
-        </div>
-    </footer>
-
-</body>
-
-</html>
+            <div class="copyright">
+                © 2024 TI Sem Ilusão. Todos os direitos reservados.
+            </div>
+        </footer>
+        
+        </body>
+        
+        </html>
